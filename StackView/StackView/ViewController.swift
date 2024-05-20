@@ -54,14 +54,75 @@ class ViewController: UIViewController {
          ])
          */
         
-        /*
+        /* 기존 addTarget
+         label.text = "Switch is OFF"
+         label.textAlignment = .center
          
+         toggleSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+         
+         let stackView = UIStackView(arrangedSubviews: [label, toggleSwitch])
+         stackView.axis = .vertical
+         stackView.spacing = 10
+         stackView.alignment = .center
+         
+         view.addSubview(stackView)
+         
+         stackView.translatesAutoresizingMaskIntoConstraints = false
+         
+         NSLayoutConstraint.activate([
+         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+         ])
          */
-     
+        
+        /* addAction
+         toggleSwitch.addAction(
+         UIAction(handler: myToggle(action:)),
+         for: .valueChanged
+         )
+         func myToggle(action: UIAction) {
+         guard let toggleSwitch = action.sender as? UISwitch else {
+         return
+         }
+         if toggleSwitch.isOn {
+         label.text = "On"
+         } else {
+         label.text = "Off"
+         }
+         }
+         
+         // or
+         toggleSwitch.addAction(
+         UIAction { action in
+         guard let toggleSwitch = action.sender as? UISwitch else {
+         return
+         }
+         if toggleSwitch.isOn {
+         self.label.text = "On"
+         } else {
+         self.label.text = "Off"
+         }
+         },
+         for: .valueChanged
+         )
+         */
+        
         label.text = "Switch is OFF"
         label.textAlignment = .center
         
-        toggleSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+        toggleSwitch.addAction(
+            UIAction { action in
+                guard let toggleSwitch = action.sender as? UISwitch else {
+                    return
+                }
+                if toggleSwitch.isOn {
+                    self.label.text = "Switch is On"
+                } else {
+                    self.label.text = "Switch is Off"
+                }
+            },
+            for: .valueChanged
+        )
         
         let stackView = UIStackView(arrangedSubviews: [label, toggleSwitch])
         stackView.axis = .vertical
@@ -76,14 +137,19 @@ class ViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
+        
+        
     }
     
-    @objc func switchChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            label.text = "Switch is ON"
-        } else {
-            label.text = "Switch is OFF"
-        }
-    }
+    /*
+     @objc func switchChanged(_ sender: UISwitch) {
+     if sender.isOn {
+     label.text = "Switch is ON"
+     } else {
+     label.text = "Switch is OFF"
+     }
+     }
+     */
+    
 }
 
