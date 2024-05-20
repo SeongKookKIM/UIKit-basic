@@ -8,8 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let toggleSwitch = UISwitch()
-    let label = UILabel()
+    
+    /*
+     let toggleSwitch = UISwitch()
+     let label = UILabel()
+     */
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,33 +111,35 @@ class ViewController: UIViewController {
          )
          */
         
-        label.text = "Switch is OFF"
-        label.textAlignment = .center
-        
-        // weak으로 약한참조를 할 수 있지만 unowned self를 사용하면 옵셔널을 사용하지 않으면서 강함 참조를 함
-        toggleSwitch.addAction(UIAction { [weak self] _ in
-            print("valueChanged")
-            if let isOn = self?.toggleSwitch.isOn, isOn {
-                self?.label.text = "Switch is ON"
-            } else {
-                self?.label.text = "Switch is OFF"
-            }
-            
-        }, for: .valueChanged)
-        
-        let stackView = UIStackView(arrangedSubviews: [label, toggleSwitch])
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.alignment = .center
-        
-        view.addSubview(stackView)
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+        /*
+         label.text = "Switch is OFF"
+         label.textAlignment = .center
+         
+         // weak으로 약한참조를 할 수 있지만 unowned self를 사용하면 옵셔널을 사용하지 않으면서 강함 참조를 함
+         toggleSwitch.addAction(UIAction { [weak self] _ in
+         print("valueChanged")
+         if let isOn = self?.toggleSwitch.isOn, isOn {
+         self?.label.text = "Switch is ON"
+         } else {
+         self?.label.text = "Switch is OFF"
+         }
+         
+         }, for: .valueChanged)
+         
+         let stackView = UIStackView(arrangedSubviews: [label, toggleSwitch])
+         stackView.axis = .vertical
+         stackView.spacing = 10
+         stackView.alignment = .center
+         
+         view.addSubview(stackView)
+         
+         stackView.translatesAutoresizingMaskIntoConstraints = false
+         
+         NSLayoutConstraint.activate([
+         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+         ])
+         */
         
         
     }
