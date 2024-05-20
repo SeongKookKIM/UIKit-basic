@@ -86,9 +86,10 @@ class ViewController: UIViewController {
             subview1.widthAnchor.constraint(equalToConstant: 50),
             subview1.heightAnchor.constraint(equalToConstant: 50),
             
-            subview2.topAnchor.constraint(equalTo: containerView.topAnchor, constant: -20),
-            subview2.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: -20),
-            subview2.widthAnchor.constraint(equalToConstant: 50),
+            subview2.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            subview2.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            subview2.widthAnchor.constraint(equalTo: subview1.widthAnchor, multiplier: 2.0),
+//            subview2.widthAnchor.constraint(equalToConstant: 50),
             subview2.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
