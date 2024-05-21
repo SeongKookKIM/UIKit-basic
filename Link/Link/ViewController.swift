@@ -36,6 +36,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let menuButton = UIButton(type: .system)
+        var config = UIButton.Configuration.filled()
+        config.title = "Options"
+        
+        menuButton.configuration = config
+        menuButton.addAction(UIAction { [weak self] _ in
+            self?.showMenu()
+        }, for: .touchUpInside)
+        
+        menuButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(menuButton)
+        
+        NSLayoutConstraint.activate([
+            menuButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            menuButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
         /* WebView
          let linkButton = UIButton(type: .system)
          var config = UIButton.Configuration.filled()
@@ -84,6 +101,20 @@ class ViewController: UIViewController {
         
         
         
+    }
+    
+    func showMenu() {
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Open", style: .default) { _ in
+            self.showMessage("Open Choose")
+        })
+        present(alert, animated: true)
+    }
+    
+    func showMessage(_ message: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     /* WebView
