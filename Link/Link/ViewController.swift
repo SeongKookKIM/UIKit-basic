@@ -18,6 +18,16 @@ class ViewController: UIViewController {
         
         return webkit
     }()
+    
+    private lazy var closeBtn: UIButton = {
+        let button = UIButton(type: .close)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(UIAction { [weak self] _ in
+            self?.webKit.isHidden = true
+        }, for: .touchUpInside)
+        
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,19 +45,23 @@ class ViewController: UIViewController {
             }
             // UIApplication.shared.open(url)
             
-            // 다양한 웹뷰 생성 with 사파리..
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.modalPresentationStyle = .pageSheet
-            self?.present(safariViewController, animated: true)햣 ㅁ
+            /*
+             // 다양한 웹뷰 생성 with 사파리..
+             let safariViewController = SFSafariViewController(url: url)
+             safariViewController.modalPresentationStyle = .pageSheet
+             self?.present(safariViewController, animated: true)
+             */
+
             
-            //self?.openInWebView(url: url)
+            self?.openInWebView(url: url)
         }, for: .touchUpInside)
         
         linkButton.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(linkButton)
-        
+        webKit.addSubview(closeBtn)
         self.view.addSubview(webKit)
-        webKit.isHidden = true
+
+         webKit.isHidden = true
         
         NSLayoutConstraint.activate([
             linkButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -55,8 +69,11 @@ class ViewController: UIViewController {
             
             webKit.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             webKit.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            webKit.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            webKit.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            webKit.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            webKit.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            
+            closeBtn.topAnchor.constraint(equalTo: webKit.topAnchor, constant: -30),
+            closeBtn.trailingAnchor.constraint(equalTo: webKit.trailingAnchor, constant: -10),
         ])
         
     }
