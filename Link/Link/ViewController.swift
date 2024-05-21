@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import SafariServices
 
 class ViewController: UIViewController {
     
@@ -32,7 +33,14 @@ class ViewController: UIViewController {
             guard let url = URL(string: "https://www.apple.com") else {
                 return
             }
-            self?.openInWebView(url: url)
+            // UIApplication.shared.open(url)
+            
+            // 다양한 웹뷰 생성 with 사파리..
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.modalPresentationStyle = .pageSheet
+            self?.present(safariViewController, animated: true)햣 ㅁ
+            
+            //self?.openInWebView(url: url)
         }, for: .touchUpInside)
         
         linkButton.translatesAutoresizingMaskIntoConstraints = false
