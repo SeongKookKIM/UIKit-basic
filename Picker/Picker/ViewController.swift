@@ -9,12 +9,16 @@ import UIKit
 
 class ViewController: UIViewController{
     
-    let datePicker = {
-        let picker = UIDatePicker()
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        
-        return picker
-    }()
+    /* DatePicker
+     let datePicker = {
+     let picker = UIDatePicker()
+     picker.translatesAutoresizingMaskIntoConstraints = false
+     
+     return picker
+     }()
+     */
+    
+    
     
     /* Picker
      private lazy var pickerView: UIPickerView = {
@@ -34,24 +38,54 @@ class ViewController: UIViewController{
         
         super.viewDidLoad()
         
-        let today = Date()
-        var dateComponents = DateComponents()
-        dateComponents.year = 1
-        let oneYearFromNow = Calendar.current.date(byAdding: dateComponents, to: today)
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.title = "Color Picker"
+        config.cornerStyle = .capsule
         
-        datePicker.minimumDate = today
-        datePicker.maximumDate = oneYearFromNow
+        button.configuration = config
         
-        datePicker.addAction(UIAction { [weak self] _ in
-            print("action: \(self?.datePicker.date.formatted() ?? "N/A")")
-        }, for: .valueChanged)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(datePicker)
+        
+        button.addAction(UIAction { [unowned self] _ in // unowned는 언랩핑 self..?
+            let colorPicker = UIColorPickerViewController()
+            colorPicker.delegate = self
+            colorPicker.supportsAlpha = false
+            colorPicker.selectedColor = view.backgroundColor ?? .white
+            self.present(colorPicker, animated: true)
+        }, for: .touchUpInside)
+        
+        self.view.addSubview(button)
         
         NSLayoutConstraint.activate([
-            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+        
+        /* DatePicker
+         let today = Date()
+         var dateComponents = DateComponents()
+         dateComponents.year = 1
+         let oneYearFromNow = Calendar.current.date(byAdding: dateComponents, to: today)
+         
+         datePicker.minimumDate = today
+         datePicker.maximumDate = oneYearFromNow
+         
+         datePicker.addAction(UIAction { [weak self] _ in
+         print("action: \(self?.datePicker.date.formatted() ?? "N/A")")
+         }, for: .valueChanged)
+         
+         view.addSubview(datePicker)
+         
+         NSLayoutConstraint.activate([
+         datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+         ])
+         */
+        
+        
         
         /* Picker
          view.addSubview(pickerView)
@@ -86,3 +120,12 @@ class ViewController: UIViewController{
     
 }
 
+extension ViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        view.backgroundColor = viewController.selectedColor
+    }
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        dismiss(animated: true)
+    }
+}
