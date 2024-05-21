@@ -18,8 +18,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         textView.delegate = self
         
-        displayLabel.text = ""
-        
         textField.borderStyle = .roundedRect
         secureTextField.borderStyle = .roundedRect
         
@@ -31,6 +29,13 @@ class ViewController: UIViewController {
         textView.layer.cornerRadius = 5.0
         textView.font = UIFont.systemFont(ofSize: 16.0)
     }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        displayLabel.text = ""
+        textView.text = "Enter your text here..."
+        textView.textColor = UIColor.lightGray
+    }
 
 
     @IBAction func didTapSubmitButton(_ sender: Any) {
@@ -39,9 +44,9 @@ class ViewController: UIViewController {
         let textViewText = textView.text ?? ""
         
         displayLabel.text = "TextField: \(textFieldText)\nSecureField: \(secureTextFieldText)\nTextView: \(textViewText)"
+        
         textField.text = ""
         secureTextField.text = ""
-        textView.text = ""
     }
 }
 
