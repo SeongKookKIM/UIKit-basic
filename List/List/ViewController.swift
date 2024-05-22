@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         let tableView = UITableView(frame: self.view.bounds)
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(tableView)
         
     }
