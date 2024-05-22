@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Gesture
+        /* Tap Gesture
          let rectangle = UIView()
          rectangle.backgroundColor = .yellow
          rectangle.frame = CGRect(x: 100, y: 100, width: 175, height: 125)
@@ -29,14 +29,26 @@ class ViewController: UIViewController {
          rectangle.addGestureRecognizer(gesture)
          */
         
+        /* UIPinchGestureRecognizer 확대 / 축소
+         let imageView = UIImageView(image: UIImage(systemName: "star.fill"))
+         imageView.frame = CGRect(x: 120, y: 300, width: 200, height: 200)
+         imageView.isUserInteractionEnabled = true
+         
+         self.view.addSubview(imageView)
+         
+         let gesture = UIPinchGestureRecognizer(target: self, action: #selector(hanlderImageGesture))
+         imageView.addGestureRecognizer(gesture)
+         */
+        
         let imageView = UIImageView(image: UIImage(systemName: "star.fill"))
-        imageView.frame = CGRect(x: 120, y: 300, width: 200, height: 200)
+        imageView.frame = CGRect(x: self.view.bounds.midX - 100, y: self.view.bounds.midY - 100, width: 200, height: 200)
         imageView.isUserInteractionEnabled = true
         
         self.view.addSubview(imageView)
         
-        let gesture = UIPinchGestureRecognizer(target: self, action: #selector(hanlderImageGesture))
-        imageView.addGestureRecognizer(gesture)
+        let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(hanlderRotationGesture))
+        imageView.addGestureRecognizer(rotationGesture)
+
     }
     /* UITapGestureRecognizer
      @objc func handleGesture(_ sender: UITapGestureRecognizer) {
@@ -54,14 +66,22 @@ class ViewController: UIViewController {
          }
      }
      */
-
-    @objc func hanlderImageGesture(_ sender: UIPinchGestureRecognizer) {
-        print(sender.scale)
+    
+    /* UIPinchGestureRecognizer 확대 / 축소
+     @objc func hanlderImageGesture(_ sender: UIPinchGestureRecognizer) {
+         print(sender.scale)
+         if let view = sender.view {
+             view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
+         }
+     }
+     */
+    
+    @objc func hanlderRotationGesture(_ sender: UIRotationGestureRecognizer) {
         if let view = sender.view {
-            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
+            view.transform = view.transform.rotated(by: sender.rotation)
+            sender.rotation = 0
         }
     }
-
 
 }
 
