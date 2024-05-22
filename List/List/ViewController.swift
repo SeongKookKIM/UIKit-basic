@@ -59,7 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
         var config = cell.defaultContentConfiguration()
-        config.text = categories[indexPath.row].animals[indexPath.row].name
+        config.text = categories[indexPath.section].animals[indexPath.row].name
         cell.contentConfiguration = config
         
         return cell
