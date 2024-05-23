@@ -37,7 +37,7 @@ class NextViewController: UIViewController {
         
         let label = UILabel()
         label.text = animal?.name ?? ""
-        if let animal = self.animal, let delegate = self.delegate {
+        if let delegate = self.delegate {
             delegate.save(animal: Animal(name: "강아지"))
         }
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +47,23 @@ class NextViewController: UIViewController {
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        let button = UIButton(type: .custom)
+        button.configuration = UIButton.Configuration.filled()
+        button.setTitle("전달", for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            if let delegate = self?.delegate {
+                delegate.save(animal: self?.animal ?? Animal(name: "강아지"))
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10)
         ])
     }
     
