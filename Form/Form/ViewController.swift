@@ -7,7 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: view.bounds, style: <#T##UITableView.Style#>)
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        return tableView
+    }()
     
     let formOneLabel = UILabel()
     let formOneTextField = UITextField()
@@ -22,10 +31,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        view.addSubview(tableView)
         
-        setupFormOne()
-        setupFormTwo()
-        setupResults()
         
         /* 최신 코드 addAction
          formOneTextField.addAction(UIAction { [weak self] _ in
@@ -43,6 +50,21 @@ class ViewController: UIViewController {
          formTwoTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
          */
         
+    }
+    
+    // MARK: - UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        return cell
     }
     
     // 액션 개체 생성 / 삭제 코드 추가
