@@ -35,10 +35,15 @@ class ViewController: UIViewController {
          }, for: .editingChanged)
          */
 
-        // addTarget
-        formOneTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
-        formTwoTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
+        /*
+         // addTarget
+         formOneTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
+         formTwoTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
+         */
+
         
+        formOneTextField.addAction(UIAction(handler: textFiledDidChange), for: .editingChanged)
+        formTwoTextField.addAction(UIAction(handler: textFiledDidChange), for: .editingChanged)
         
     }
 
@@ -96,8 +101,20 @@ class ViewController: UIViewController {
         ])
     }
     
-    // addTarget
-    @objc func textFiledDidChange(_ textFiled: UITextField) {
+    
+    /*
+     // addTarget
+     @objc func textFiledDidChange(_ textFiled: UITextField) {
+         if textFiled == formOneTextField {
+             resultLabelOne.text = "폼 #1 = \(self.formOneTextField.text ?? "")"
+         } else {
+             resultLabelTwo.text = "폼 #1 = \(self.formTwoTextField.text ?? "")"
+         }
+     }
+     */
+
+    func textFiledDidChange(_ action: UIAction) {
+        guard let textFiled = action.sender as? UITextField else { return }
         if textFiled == formOneTextField {
             resultLabelOne.text = "폼 #1 = \(self.formOneTextField.text ?? "")"
         } else {
