@@ -24,6 +24,22 @@ class ViewController: UIViewController {
         setupFormOne()
         setupFormTwo()
         setupResults()
+        
+        /* 최신 코드 addAction
+         formOneTextField.addAction(UIAction { [weak self] _ in
+             self?.resultLabelOne.text = "폼 #1 = \(self?.formOneTextField.text ?? "")"
+         }, for: .editingChanged)
+         
+         formTwoTextField.addAction(UIAction { [weak self] _ in
+             self?.resultLabelTwo.text = "폼 #2 = \(self?.formTwoTextField.text ?? "")"
+         }, for: .editingChanged)
+         */
+
+        // addTarget
+        formOneTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
+        formTwoTextField.addTarget(self, action: #selector(textFiledDidChange), for: .editingChanged)
+        
+        
     }
 
     func setupFormOne() {
@@ -78,6 +94,15 @@ class ViewController: UIViewController {
             resultLabelTwo.topAnchor.constraint(equalTo: resultLabelOne.bottomAnchor, constant: 10),
             resultLabelTwo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
+    }
+    
+    // addTarget
+    @objc func textFiledDidChange(_ textFiled: UITextField) {
+        if textFiled == formOneTextField {
+            resultLabelOne.text = "폼 #1 = \(self.formOneTextField.text ?? "")"
+        } else {
+            resultLabelTwo.text = "폼 #1 = \(self.formTwoTextField.text ?? "")"
+        }
     }
 
 }
