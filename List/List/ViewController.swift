@@ -24,24 +24,21 @@ class CustomCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-
-        contentView.addSubview(animalImageView)
-        contentView.addSubview(nameLabel)
-        
         setUp()
-        
-
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setUp()
     }
     
     func setUp() {
         animalImageView.contentMode = .scaleAspectFit
         animalImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(animalImageView)
+        contentView.addSubview(nameLabel)
         
         NSLayoutConstraint.activate([
             animalImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
