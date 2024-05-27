@@ -60,6 +60,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             addButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+        
+    }
+    
+    // FIXME: - 개발 확인용
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addButton.sendActions(for: .touchUpInside)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
